@@ -1,0 +1,96 @@
+/* Fuentes del rediseño — el @import DEBE ir antes de las directivas de Tailwind */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background-color: #07100B;
+    color: #EBF5EE;
+    font-family: 'Manrope', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: #22E07A;
+    color: #04140B;
+  }
+
+  :focus-visible {
+    outline: 2px solid #22E07A;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
+
+/* ===== Rediseño: animaciones y helpers responsivos =====
+   (Los @keyframes y media queries no se pueden hacer con estilos
+   en línea, por eso viven aquí. Todo lo demás es inline.)        */
+@keyframes cr-bubbleIn {
+  from { opacity: 0; transform: translateY(8px) scale(.96); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes cr-typingDot {
+  0%, 60%, 100% { transform: translateY(0); opacity: .4; }
+  30%           { transform: translateY(-4px); opacity: 1; }
+}
+@keyframes cr-floaty {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+@keyframes cr-pulseGlow {
+  0%, 100% { opacity: .55; transform: scale(1); }
+  50%      { opacity: .9; transform: scale(1.08); }
+}
+@keyframes cr-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Únicas reglas responsivas que necesitan media query: el menú del nav */
+.cr-show-sm { display: none; }
+@media (max-width: 760px) {
+  .cr-hide-sm { display: none !important; }
+  .cr-show-sm { display: inline-flex !important; }
+}
